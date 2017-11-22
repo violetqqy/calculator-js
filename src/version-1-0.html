@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Calculator Version1.0</title>
+    <style>
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        color: #fff;
+    }
+
+    .main {
+        width: 100%;
+        padding: 30px 20%;
+    }
+
+    .header {
+        text-align: center;
+        color: orange;
+    }
+
+    .container__result {
+        text-align: right;
+        font-size: 32px;
+    }
+
+    .container__buttons button {
+        display: block;
+        float: left;
+        width: 23%;
+        height: 50px;
+        margin: 1%;
+        font-size: 18px;
+        border: none;
+        color: #fff;
+    }
+
+    .container__buttons button:focus {
+        outline: none;
+    }
+
+    .container__buttons .double {
+        width: 48%;
+    }
+
+    .container__buttons .reset {
+        color: #000;
+        background: lightgrey;
+    }
+
+    .container__buttons .symbol {
+        background: orange;
+    }
+
+    .container__buttons .number {
+        background: grey;
+    }
+
+    .clear:before,
+    .clear:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+    </style>
+</head>
+
+<body bgcolor="black">
+    <div class="main">
+        <h1 class="header">Calculator</h1>
+        <section class="container">
+            <div class="container__result">
+                <span id="result">0</span>
+            </div>
+            <div class="container__buttons clear">
+                <button class="reset" onclick="calculator.acReset()">C</button>
+                <button class="reset" onclick="calculator.selectSymbol('~')">+/-</button>
+                <button class="reset" onclick="calculator.selectSymbol('%')">%</button>
+                <button class="symbol" onclick="calculator.selectSymbol('/')">/</button>
+                <button class="number" onclick="calculator.selectNum(7)">7</button>
+                <button class="number" onclick="calculator.selectNum(8)">8</button>
+                <button class="number" onclick="calculator.selectNum(9)">9</button>
+                <button class="symbol" onclick="calculator.selectSymbol('*')">*</button>
+                <button class="number" onclick="calculator.selectNum(4)">4</button>
+                <button class="number" onclick="calculator.selectNum(5)">5</button>
+                <button class="number" onclick="calculator.selectNum(6)">6</button>
+                <button class="symbol" onclick="calculator.selectSymbol('-')">-</button>
+                <button class="number" onclick="calculator.selectNum(1)">1</button>
+                <button class="number" onclick="calculator.selectNum(2)">2</button>
+                <button class="number" onclick="calculator.selectNum(3)">3</button>
+                <button class="symbol" onclick="calculator.selectSymbol('+')">+</button>
+                <button class="number double" onclick="calculator.selectNum(0)">0</button>
+                <button class="number" onclick="calculator.selectNum('.')">.</button>
+                <button class="symbol" onclick="calculator.getResult()">=</button>
+            </div>
+        </section>
+    </div>
+    <script>
+    // Calculator 类 实现简单的加减乘除计算
+    var Calculator = function() {}
+    Calculator.prototype = {
+        result: 0, // 结果值
+        template: '', // 暂存值
+        symbol: null, // 符号
+        // 实现加法
+        addition: function(x) {
+            this.getLog();
+            this.result += Number(x);
+            this.template = '';
+            return this;
+        },
+        // 实现减法
+        subtraction: function(x) {
+            this.getLog();
+            this.result -= Number(x);
+            this.template = '';
+            return this;
+        },
+        // 实现乘法
+        multiplication: function(x) {
+            this.getLog();
+            this.result *= Number(x);
+            this.template = '';
+            return this;
+        },
+        // 实现除法
+        division: function(x) {
+            this.getLog();
+            if (this.result) {
+                this.result /= Number(x);
+            }
+            this.template = '';
+            return this;
+        },
+        // 取负数
+        negative: function() {
+            this.getLog();
+            this.result = -Number(this.result);
+            return this;
+        },
+        // 实现取余数
+        remainder: function(x) {
+            this.getLog();
+            if (this.template) {
+                this.result %= Number(x);
+            }
+            this.template = '';
+            return this;
+        },
+        // 重置所有
+        reset: function() {
+            this.result = 0;
+            this.template = '';
+            this.symbol = null;
+            return this;
+        },
+        acReset: function() {
+            this.reset().setResult(0);
+        },
+        // 选择数字
+        selectNum: function(num) {
+            this.template += num;
+            this.setResult(this.template);
+        },
+        // 选择符号
+        selectSymbol: function(symbol) {
+            this.switchResult(this.symbol);
+            this.symbol = symbol;
+            if (symbol == '~') {
+                this.switchResult(this.symbol);
+            }
+        },
+        // 获得结果
+        getResult: function() {
+            this.switchResult(this.symbol);
+        },
+        // 判断符号并进行相应的计算
+        switchResult: function(symbol) {
+            switch (symbol) {
+                case '+':
+                    this.addition(this.template).setResult(this.result);
+                    break;
+                case '-':
+                    this.subtraction(this.template).setResult(this.result);
+                    break;
+                case '*':
+                    this.multiplication(this.template).setResult(this.result);
+                    break;
+                case '/':
+                    this.division(this.template).setResult(this.result);
+                    break;
+                case '~':
+                    this.negative().setResult(this.result);
+                    break;
+                case '%':
+                    this.remainder(this.template).setResult(this.result);
+                    break;
+                default:
+                    this.addition(this.template).setResult(this.result);
+                    break;
+            }
+        },
+        // 设置文本值
+        setResult: function(result) {
+            document.getElementById('result').innerHTML = result;
+            return this;
+        },
+        // 打印
+        getLog: function() {
+            console.table({
+                result: this.result,
+                symbol: this.symbol,
+                template: this.template
+            })
+        }
+    }
+    Calculator.prototype.constructor = Calculator;
+
+    // 实例化 Calculator 类
+    var calculator = new Calculator();
+    </script>
+</body>
+
+</html>
