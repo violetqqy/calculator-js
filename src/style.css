@@ -1,0 +1,63 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  color: #fff;
+}
+
+.main {
+  width: 100%;
+  padding: 30px 20%;
+}
+
+.header {
+  text-align: center;
+  color: orange;
+}
+
+.container__result {
+  text-align: right;
+  font-size: 32px;
+}
+
+.container__buttons button {
+  display: block;
+  float: left;
+  width: 23%;
+  height: 50px;
+  margin: 1%;
+  font-size: 18px;
+  border: none;
+  color: #fff;
+}
+
+.container__buttons button:focus {
+  outline: none;
+}
+
+.container__buttons .double {
+  width: 48%;
+}
+
+.container__buttons .reset {
+  color: #000;
+  background: lightgrey;
+}
+
+.container__buttons .symbol {
+  background: orange;
+}
+
+.container__buttons .number {
+  background: grey;
+}
+
+.clear:before,
+.clear:after {
+  content: '';
+  display: table;
+  clear: both;
+}
