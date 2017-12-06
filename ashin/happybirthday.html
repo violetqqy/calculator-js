@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>陳信宏，生日快樂！</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      background: #000;
+    }
+
+    .container {
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    .square {
+      float: left;
+      width: 20px;
+      height: 20px;
+      background: #000;
+      /*border: 1px solid #fff;*/
+      color: red;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="container" class="container">
+  </div>
+  <script>
+    var square = '';
+    for (var i = 0; i < 1995; i++) {
+      square += '<div id="' + i + '" class="square" onclick="changeColor(this)"></div>';
+    }
+    var list = [
+      30, 31, 32, 33, 48, 63, 77, 92, 108, 123, 137, 45, 60, 75, 90, 105, 120, 135, 150, 165,
+      180, 195, 210, 50, 51, 52, 53, 54, 55, 56, 57, 58, 81, 96, 111, 126, 141, 82, 83, 84, 85,
+      86, 87, 102, 117, 132, 147, 112, 113, 114, 115, 116, 142, 143, 144, 145, 146, 24, 39, 54,
+      69, 84, 99, 114, 129, 144, 159, 174, 189, 204, 219, 158, 172, 187, 186, 201, 200, 214, 160,
+      176, 192, 207, 208, 224
+    ]
+    document.getElementById('container').innerHTML = square;
+
+    function changeColor(event) {
+      console.log(event.id);
+      if (event.style.background == 'rgb(255, 255, 255)') {
+        event.style.background = '#000';
+        event.style.border = '1px solid #fff';
+      } else {
+        event.style.background = '#fff';
+        event.style.border = '1px solid #000';
+      }
+    }
+
+    function changeEle(id) {
+      document.getElementById(id).style.background = '#fff';
+      document.getElementById(id).style.border = '1px solid #000';
+    }
+
+    // list.forEach((id, i) => {
+    //   console.log(i);
+    //   var time = setTimeout(changeEle(id), 100000*i);
+    // })
+
+    var i = 0;
+    var interval = setInterval(function(){
+        var obj = list[i];
+        changeEle(obj);
+        // do whatever
+        i++;
+        if(i === list.length) clearInterval(interval);
+    }, 100);
+
+  </script>
+</body>
+
+</html>
