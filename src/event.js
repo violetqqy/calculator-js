@@ -1,6 +1,6 @@
 // javascript事件
 // DOM0级事件 onclick
-// DOM1级事件 addEventListener removeEventListener（捕获、处于目标、冒泡）
+// DOM2级事件 addEventListener removeEventListener（捕获、处于目标、冒泡）
 // IE中的事件 attachEvent detachEvent（冒泡）
 var EventUtil = {
     addHandler: function(element, type, handler) {
