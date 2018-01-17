@@ -135,7 +135,7 @@ console.log('[d.multiplication(1, 1)]: ' + d.multiplication(1, 1));
 console.log('[d.division(1, 1)]: ' + d.division(1, 1));
 
 /**
- * 链式调用类
+ * 链式调用类3
  */
 var CalculatorObj5 = function() {}
 console.log(CalculatorObj5.prototype.constructor); // CalculatorObj5
